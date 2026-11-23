@@ -52,6 +52,7 @@ node scripts/test_code_node.js
 ## ⚠️ Límites y uso responsable
 
 * **Las respuestas son borradores.** Una persona debe revisarlas antes de enviarlas: la IA puede equivocarse o ser manipulada por el texto del ticket.
+* **La IA puede dar por hecho lo que no sabe.** En las pruebas, ante "¿Hacéis envíos a Canarias?", el borrador confirmó que sí se envía, aunque las políticas del prompt no lo dicen (lo del plazo inventado se corrigió con una regla en el prompt). Por eso el borrador va siempre a revisión humana y no se envía solo al cliente.
 * **El formulario es público** si lo expones a internet: añade límite de peticiones o captcha antes de usarlo en producción (cada envío consume cuota de Groq y genera un mensaje en Discord).
 * **Datos personales:** el nombre, el pedido y el problema se envían a Groq, y nombre, email y problema a Discord. Con datos reales de clientes aplica la RGPD. Los ejemplos de este repositorio son ficticios.
 * Probado en una instancia local de n8n. No incluye gestión de errores a nivel de instancia (workflow de errores) ni persistencia de tickets.
