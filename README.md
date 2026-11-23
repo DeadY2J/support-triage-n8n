@@ -60,7 +60,7 @@ node scripts/test_code_node.js
 
 ## 🤝 Cómo se ha hecho
 
-Desarrollado con ayuda de Claude (Anthropic). Yo diseñé el flujo y las políticas, lo probé en mi n8n con casos difíciles (órdenes escondidas, menciones, textos largos) y decido qué se incorpora al proyecto.
+Desarrollado con ayuda de Claude (Anthropic) y Gemini (Google). Yo diseñé el flujo y las políticas, lo probé en mi n8n con casos difíciles (órdenes escondidas, menciones, textos largos) y decido qué se incorpora al proyecto.
 
 ## 📄 Licencia
 
