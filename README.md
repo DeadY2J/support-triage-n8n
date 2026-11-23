@@ -1,3 +1,4 @@
+<img width="1908" height="906" alt="n8nWorkflowSupportTriage" src="https://github.com/user-attachments/assets/e9a10f44-d762-47b9-ac53-97965f18d69c" />
 # 🎫 SupportTriage AI — Triaje Automático de Tickets con n8n + Groq
 
 Flujo de automatización en **n8n** que recibe incidencias de clientes mediante un formulario web, las clasifica con IA aplicando reglas de negocio reales, prioriza los casos críticos con lógica condicional y notifica al equipo de operaciones en **Discord** con un borrador de respuesta listo para enviar.
