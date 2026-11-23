@@ -8,14 +8,18 @@ const workflow = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'workflow
 const nodo = (nombre) => workflow.nodes.find((n) => n.name === nombre);
 const codigo = nodo('Procesar Respuesta IA').parameters.jsCode;
 
-function ejecutar(ticket, respuestaHttp) {
+// Ejecuta el nodo con una lista de tickets y sus respuestas de la IA (en el mismo orden).
+function ejecutarVarios(tickets, respuestasHttp) {
   const $ = (nombre) => {
     assert.strictEqual(nombre, 'On form submission');
-    return { first: () => ({ json: ticket }) };
+    return { all: () => tickets.map((json) => ({ json })) };
   };
-  const $input = { first: () => ({ json: respuestaHttp }) };
-  const [item] = new Function('$', '$input', codigo)($, $input);
-  return item.json;
+  const $input = { all: () => respuestasHttp.map((json) => ({ json })) };
+  return new Function('$', '$input', codigo)($, $input).map((item) => item.json);
+}
+
+function ejecutar(ticket, respuestaHttp) {
+  return ejecutarVarios([ticket], [respuestaHttp])[0];
 }
 
 const ticketBase = {
@@ -117,6 +121,34 @@ prueba('el mensaje de Discord incluye el texto original del ticket', () => {
   for (const nombre of ['🚨 Alerta Crítica (Discord)', '📋 Ticket Estándar (Discord)']) {
     assert.ok(nodo(nombre).parameters.content.includes('$json.problema'), nombre);
   }
+});
+
+prueba('varios tickets a la vez: cada respuesta se empareja con su ticket', () => {
+  const tickets = [
+    { ...ticketBase, Cliente: 'Ana', Problema: 'uno' },
+    { ...ticketBase, Cliente: 'Luis', Problema: 'dos' },
+    { ...ticketBase, Cliente: 'Eva', Problema: 'tres' },
+  ];
+  const respuestas = [
+    respuestaIA({ ...iaOk, urgencia: 'Baja', resumen: 'r1' }),
+    { error: { message: 'fallo' } },
+    respuestaIA({ ...iaOk, urgencia: 'Media', resumen: 'r3' }),
+  ];
+  const r = ejecutarVarios(tickets, respuestas);
+  assert.deepStrictEqual(r.map((x) => x.cliente), ['Ana', 'Luis', 'Eva']);
+  assert.deepStrictEqual(r.map((x) => x.urgencia), ['Baja', 'Alta', 'Media']);
+  assert.deepStrictEqual(r.map((x) => x.revision_manual), [false, true, false]);
+  assert.strictEqual(r[2].resumen, 'r3');
+});
+
+prueba('examples/tickets.json tiene los 6 casos y todos procesan sin fallar', () => {
+  const casos = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'examples', 'tickets.json'), 'utf8'));
+  assert.strictEqual(casos.length, 6);
+  for (const c of casos) {
+    for (const campo of ['Cliente', 'Email', 'Problema']) assert.ok(c[campo], `falta ${campo}`);
+  }
+  const r = ejecutarVarios(casos, casos.map(() => respuestaIA(iaOk)));
+  assert.strictEqual(r.length, 6);
 });
 
 let fallos = 0;

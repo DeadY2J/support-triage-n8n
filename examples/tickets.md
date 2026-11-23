@@ -1,5 +1,18 @@
 # Tickets de prueba
 
+## Probar los 6 a la vez (sin escribirlos uno a uno)
+
+El archivo [`tickets.json`](tickets.json) contiene los 6 casos. Para pasarlos todos por el flujo en una sola ejecución:
+
+1. Abre el workflow en n8n y haz doble clic en el nodo **On form submission**.
+2. En el panel **Output** (derecha) elige **Set mock data** (o **Edit Output** si ya hay datos) y pega el contenido de `tickets.json`. Guarda.
+3. Pulsa **Execute workflow**. Se procesan los 6 tickets y llegan 6 mensajes a Discord.
+4. Al terminar, quita los datos fijados (icono del pin 📌 → **Unpin**) para que no se guarden en el workflow.
+
+Los datos fijados solo se usan en ejecuciones manuales: no afectan al formulario real.
+
+## Casos
+
 Datos ficticios para probar el formulario. Qué debería pasar con cada uno:
 
 | # | Cliente | Problema | Resultado esperado |

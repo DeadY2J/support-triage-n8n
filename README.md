@@ -37,7 +37,8 @@ Flujo de automatización en **n8n** que recibe incidencias de clientes mediante 
 2. Crea dos credenciales (los nodos las piden por estos nombres):
    * **`Groq API`** (tipo *Header Auth*): *Name* = `Authorization`, *Value* = `Bearer TU_CLAVE_DE_GROQ`.
    * **`Discord Operaciones`** (tipo *Discord Webhook*): la URL del webhook de tu canal.
-3. Abre el formulario (*Execute workflow* y la URL de prueba del nodo **On form submission**) y envía uno de los tickets de [`examples/tickets.md`](examples/tickets.md).
+3. Prueba con un ticket: abre el formulario (*Execute workflow* y la URL de prueba del nodo **On form submission**) y envía uno de [`examples/tickets.md`](examples/tickets.md).
+4. O prueba los 6 casos de golpe pegando [`examples/tickets.json`](examples/tickets.json) como datos de prueba del nodo (instrucciones en `examples/tickets.md`).
 
 ## 🧪 Pruebas
 
