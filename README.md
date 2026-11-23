@@ -57,6 +57,10 @@ node scripts/test_code_node.js
 * **Datos personales:** el nombre, el pedido y el problema se envían a Groq, y nombre, email y problema a Discord. Con datos reales de clientes aplica la RGPD. Los ejemplos de este repositorio son ficticios.
 * Probado en una instancia local de n8n. No incluye gestión de errores a nivel de instancia (workflow de errores) ni persistencia de tickets.
 
+## 🤝 Cómo se ha hecho
+
+Desarrollado con ayuda de Claude (Anthropic). Yo diseñé el flujo y las políticas, lo probé en mi n8n con casos difíciles (órdenes escondidas, menciones, textos largos) y decido qué se incorpora al proyecto.
+
 ## 📄 Licencia
 
 MIT. Consulta [LICENSE](LICENSE).
