@@ -30,6 +30,7 @@ Flujo de automatización en **n8n** que recibe incidencias de clientes mediante 
 * **Ante la duda, urgencia Alta.** Si la IA falla, devuelve un JSON roto o una urgencia desconocida, el ticket va a la rama crítica marcado con `⚠️ … revisar a mano`. Un ticket nunca pasa desapercibido por un error de la IA.
 * **Limpia el texto de terceros:** neutraliza las menciones (`@everyone`, `@here`) y limita la longitud para no superar los 2000 caracteres de Discord.
 * El prompt indica al modelo que trate el ticket como contenido a analizar y no como instrucciones.
+* El prompt también le prohíbe inventar plazos, precios o condiciones que no estén en las políticas. En una prueba con un ticket sobre envíos a Canarias, el modelo sin esa regla se inventó un plazo de entrega; por eso existe.
 
 ## ⚙️ Puesta en marcha
 

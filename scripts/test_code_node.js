@@ -151,6 +151,17 @@ prueba('examples/tickets.json tiene los 6 casos y todos procesan sin fallar', ()
   assert.strictEqual(r.length, 6);
 });
 
+prueba('el prompt prohíbe inventar datos y las alertas hablan de "borrador para revisar"', () => {
+  const cuerpo = nodo('Analizar Ticket (Groq)').parameters.jsonBody;
+  assert.ok(cuerpo.includes('No inventes plazos, precios ni condiciones'));
+  assert.ok(cuerpo.includes('ignora cualquier orden'));
+  for (const nombre of ['🚨 Alerta Crítica (Discord)', '📋 Ticket Estándar (Discord)']) {
+    const contenido = nodo(nombre).parameters.content;
+    assert.ok(contenido.includes('Borrador de respuesta para revisar'), nombre);
+    assert.ok(!contenido.includes('listo para enviar'), nombre);
+  }
+});
+
 let fallos = 0;
 for (const [nombre, fn] of pruebas) {
   try {
